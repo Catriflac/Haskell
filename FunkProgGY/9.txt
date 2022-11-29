@@ -1,0 +1,1 @@
+greenBrands xs = length $ nub [brand | (brand, cars) <- xs, (typ, fuel, count) <- cars, fuel == "electric" || fuel == "plug-in"]
