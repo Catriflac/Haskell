@@ -52,7 +52,8 @@ f (Just x) = Left x
 f Nothing = Right ()
 
 g :: Either a () -> Maybe a
-g = undefined
+g (Left x) = Just x
+g (Right x) = Nothing
 
 --------------------------
 -- Rekurziv adattipusok --
@@ -93,16 +94,19 @@ myTree = Node (Node (Leaf 1) 3 (Leaf 2)) 7 (Node (Leaf 4) 6 (Leaf 5))
      / \ 
     2   3  
 -}
-myTree2 = undefined
+myTree2 = Node (Node (Leaf 2) 4 (Leaf 3)) 10 (Leaf 2)
 
 height :: Tree a -> Int
-height = undefined
+height (Leaf _) = 0
+height (Node l _ r) = 1 + ( height l `max` height r )
 
 sumTree :: Num a => Tree a -> a
-sumTree = undefined
+sumTree (Leaf x)      = x
+sumTree (Node l x r)  = sumTree l + x + sumTree r
 
 makeList :: Tree a -> [a]
-makeList = undefined
+makeList (Leaf x)       = [x]
+makeList (Node l x r)   = makeList l ++ [x] ++ makeList r
 
 -- Megjegyzes: ezeket a fuggvenyeket automatikusan megkapjuk, ha megadjuk a Foldable instance-ot (azaz, pl. a foldr-t)
 
